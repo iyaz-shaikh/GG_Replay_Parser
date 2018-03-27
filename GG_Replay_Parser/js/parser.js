@@ -76,7 +76,7 @@ function parseEntireReplayFile(file) {
         var oldSteamIDs = $("#uniqueSteamIDs").find("tbody");
         var newSteamIDs = $("<tbody>");
         let uniqueSteamIDsIterator = uniqueSteamIDs.values();
-        let uniqueSteamIDsArray = []; //For Future use.
+        let uniqueSteamIDsArray = new Array(); //For Future use.
         var uniqueSteamIDsIndex = 0;
         for (let uniqueSteamID of uniqueSteamIDsIterator) {
             var newRow = $("<tr>");
@@ -111,6 +111,8 @@ function parseEntireReplayFile(file) {
         newRows.append($("</tbody>"));
         oldRows.replaceWith(newRows);
 
+        //HTTP requests
+        steamIDPostRequest(uniqueSteamIDsArray);
 
         //debug shit here
         /*

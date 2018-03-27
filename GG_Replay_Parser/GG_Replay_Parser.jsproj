@@ -70,6 +70,7 @@
     <Content Include="js\constants.js" />
     <Content Include="js\jquery-3.3.1.js" />
     <Content Include="js\parser.js" />
+    <Content Include="js\requests.js" />
     <None Include="GG_Replay_Parser_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
