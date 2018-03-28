@@ -1,0 +1,75 @@
+body {
+    background: url("http://www.ggxrd.com/rev/ac/assets/img/rev2/visual-logo.png") right top no-repeat, url("http://opuk.ca/images/background.jpg") left top no-repeat;
+    background-size: 20%, cover;
+}
+
+header 
+		{
+		margin: auto;
+		list-style-type: none;
+		opacity:0.9;
+		padding-left: 10px;
+		padding-right: 10px;
+		height: 30px;
+		width: 1020px;
+		background-color: #333;
+		color: black;
+		text-align: right;
+		}
+				
+		content
+		{
+		padding: 10px 10px 10px 10px;
+		margin: auto;
+		opacity:0.9;
+		width: 1020px;
+		background-color: white;
+		color: black;
+		text-align: left;
+		}
+		
+		footer {
+		margin: auto;
+		opacity:0.9;
+		padding-left: 10px;
+		padding-right: 10px;
+		bottom: 0;
+		width: 1020px;
+		background-color: #333;
+		color: white;
+		text-align: center;
+		}
+		
+		li {
+		float: left;
+		padding-left: 20px;
+		}
+
+			li a {
+			display: inline-block;
+			color: white;
+			text-align: center;
+			padding: 5px 15px;
+			text-decoration: none;
+			}
+
+			li a:hover {
+			background-color: #111;
+			}
+			
+		liright {
+		float: right;
+		padding-right: 15px;
+		}
+
+			liright a {
+			display: inline-block;
+			color: white;
+			text-align: center;
+			padding: 5px 15px;
+			text-decoration: none;
+			}
+
+			liright a:hover {
+			background-color: #111;
+			}

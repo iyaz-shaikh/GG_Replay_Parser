@@ -3,35 +3,142 @@
 <head>
     <meta charset="utf-8" />
     <title>Guilty Gears Analytics</title>
-    <link href="css/default.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/constants.js"></script>
     <script src="js/parser.js"></script>
-</head>
-<body bgcolor="111111" background="images/background.jpg">
+	<style>
+	
+		.header 
+		{
+		margin: auto;
+		list-style-type: none;
+		opacity:0.9;
+		height: 30px;
+		padding-left: 10px;
+		padding-right: 10px;
+		width: 1020px;
+		background-color: #333;
+		color: black;
+		text-align: right;
+		border-width: 3px;
+		border-bottom-width:3px;
+		border-bottom-color:black;
+		border-bottom-style: solid;
 
-   <font color="FFFFFF"></center><center><div> <input type="file" id="fileUpload" name="Upload" /><button id="submit">Submit</button></div></center>
-    
+		}
+				
+		.content
+		{
+		margin: auto;
+		padding: 10px 10px 10px 10px;
+		opacity:0.9;
+		width: 1020px;
+		background-color: white;
+		color: black;
+		text-align: left;
+		}
+		
+		.footer {
+		margin: auto;
+		opacity:0.9;
+		padding-left: 10px;
+		padding-right: 10px;
+		bottom: 0;
+		width: 1020px;
+		background-color: #333;
+		color: white;
+		text-align: center;
+		border-width: 3px;
+		border-top-width:3px;
+		border-top-color:black;
+		border-top-style: solid;
+		}
+		
+		li {
+		float: left;
+		padding-left: 20px;
+		}
+
+			li a {
+			display: inline-block;
+			color: white;
+			text-align: center;
+			padding: 5px 15px;
+			text-decoration: none;
+			}
+
+			li a:hover {
+			background-color: #111;
+			}
+			
+		liright {
+		float: right;
+		padding-right: 15px;
+		}
+
+			liright a {
+			display: inline-block;
+			color: white;
+			text-align: center;
+			padding: 5px 15px;
+			text-decoration: none;
+			}
+
+			liright a:hover {
+			background-color: #111;
+			}
+			
+
+		
+	</style>
+</head>
+<body>
+
+	<div class="header">
+		<li><a href="#home">Home</a></li>
+		<li><a href="#news">Character</a></li>
+		<li><a href="#player">Player</a></li>
+		<li><a href="#contact">Contact</a></li>
+		<li><a href="about.html">About</a></li>
+		<font color="FFFFFF">
+			<liright>
+			  <a onclick="form.submit();">Upload a replay</a>
+			</liright>
+	</div>
+	
+  
 	<center>
-	<div class='tableauPlaceholder' id='viz1522205736078' style='position: relative'>
-	<noscript><a href='#'>
-	<img alt='Guilty Gear (2) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Gu&#47;GuiltyGearAnalyticsGlobalCharacterWinRate&#47;GuiltyGear2&#47;1_rss.png' style='border: none' />
-	</a></noscript>
-	<object class='tableauViz'  style='display:none;'>
-	<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
-	<param name='embed_code_version' value='3' /> 
-	<param name='site_root' value='' />
-	<param name='name' value='GuiltyGearAnalyticsGlobalCharacterWinRate&#47;GuiltyGear2' />
-	<param name='tabs' value='no' />
-	<param name='toolbar' value='no' />
-	<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Gu&#47;GuiltyGearAnalyticsGlobalCharacterWinRate&#47;GuiltyGear2&#47;1.png' />
-	<param name='animate_transition' value='yes' />
-	<param name='display_static_image' value='yes' />
-	<param name='display_spinner' value='yes' />
-	<param name='display_overlay' value='no' />
-	<param name='display_count' value='yes' />
-	<param name='filter' value='publish=yes' />
-	</object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1522205736078');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1000px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-	</center>
+	<div class="content">
+
+		<div class="tableau" id='viz1522205736078' align="center">
+		<noscript><a href='#'>
+		<img alt='Guilty Gear (2) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Gu&#47;GuiltyGearAnalyticsGlobalCharacterWinRate&#47;GuiltyGear2&#47;1_rss.png' style='border: none' />
+		</a></noscript>
+		<object class='tableauViz'  style='display:none;'>
+		<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+		<param name='embed_code_version' value='3' /> 
+		<param name='site_root' value='' />
+		<param name='name' value='GuiltyGearAnalyticsGlobalCharacterWinRate&#47;GuiltyGear2' />
+		<param name='tabs' value='no' />
+		<param name='toolbar' value='no' />
+		<param name='animate_transition' value='yes' />
+		<param name='display_static_image' value='no' />
+		<param name='display_spinner' value='yes' />
+		<param name='display_overlay' value='no' />
+		<param name='display_count' value='yes' />
+		<param name='filter' value='publish=no' />
+		</object> 
+		<script type='text/javascript'>                    
+			var divElement = document.getElementById('viz1522205736078');
+			var vizElement = divElement.getElementsByTagName('object')[0];                   
+			vizElement.style.width='1000px';vizElement.style.height='827px';                    
+			var scriptElement = document.createElement('script');                    
+			scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+			vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+		</script>
+		</center>
+	</div></div>
+	<div class="footer">This is a community project and not for commercial use, all assets and rights are owned by Arksys.</div>
 	</body>
 	</html>
