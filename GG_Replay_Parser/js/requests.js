@@ -7,3 +7,11 @@
         }
     );
 }
+
+function steamIDGetRequest() {
+    $.get("http://localhost:1337/steamIDs",
+        function (data) {
+            alert('job done');
+        }
+    );
+}
