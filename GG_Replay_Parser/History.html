@@ -39,6 +39,19 @@
 
 		
 	</style>
+	
+	
+<script>
+function myFunction() {
+    var x = document.getElementById("Demo");
+    if (x.className.indexOf("w3-show") == -1) { 
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
 </head>
 <body>
 <div class="w3-top">
@@ -46,10 +59,10 @@
   <a href="#" class="w3-bar-item w3-button">Home</a>
         <input type="text" class="w3-bar-item w3-input" placeholder="Player Search..">
   <a href="#" class="w3-bar-item w3-button w3-light-grey">Go</a>
-	  <div class="w3-dropdown-hover">
-    <button class="w3-button">Characters</button>
-
-    <div class="w3-dropdown-content"  w3-card-4">
+	  <div class="w3-dropdown-click">
+  <button onclick="myFunction()" class="w3-button w3-dark-grey">Characters</button>
+  <div id="Demo" class="w3-dropdown-content  w3-border">
+    
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R2_Answer_Icon.png" width="40"> Answer</a>
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Axl_Icon.png" width="40">  Axl Low</a>
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R2_Baiken_Icon.png" width="40">  Baiken</a>
@@ -75,17 +88,20 @@
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Sol_Icon.png" width="40">  Sol Badguy</a>
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Venom_Icon.png" width="40">  Venom</a>
 		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Zato-1_Icon.png" width="40">  Zato-1</a>
-    </div>
+   
+  </div>
   </div>
   <div class="w3-dropdown-hover">
     <button class="w3-button">About</button>
-    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+    <div class="w3-dropdown-content  w3-bar-block w3-card-4">
       <a href="#" class="w3-bar-item w3-button">Contact</a>
       <a href="#" class="w3-bar-item w3-button">Tools used</a>
       <a href="#" class="w3-bar-item w3-button">History</a>
     </div>
   </div>
-	   <a href="#" class="w3-bar-item w3-button w3-light-grey">Upload Replays</a>
+	   <button class="w3-bar-item3 w3-button w3-semi-grey">?</button>
+	   <a href="#" class="w3-bar-item3 w3-button w3-light-grey">Upload Replays</a>
+	   
 </div> 
 </div>	
   <div class="content">
