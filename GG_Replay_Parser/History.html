@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Guilty Gears Analytics - History</title>
+    <link href="css/main.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/w3.css"> 
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/parser.js"></script>
+	<style>
+	
+		
+		.content
+		{
+		padding: 35px 10px 20px 10px;
+		margin: auto;
+		opacity:0.9;
+		width: 1020px;
+		background-color: white;
+		color: black;
+		text-align: left;
+		}
+		
+		.footer {
+		margin: auto;
+		opacity:0.9;
+		padding-left: 10px;
+		padding-right: 10px;
+		bottom: 0;
+		width: 1020px;
+		background-color: #333;
+		color: white;
+		text-align: center;
+		}
+		
+	
+			
+
+		
+	</style>
+</head>
+<body>
+<div class="w3-top">
+ <div class="w3-bar w3-dark-grey">
+  <a href="#" class="w3-bar-item w3-button">Home</a>
+        <input type="text" class="w3-bar-item w3-input" placeholder="Player Search..">
+  <a href="#" class="w3-bar-item w3-button w3-light-grey">Go</a>
+	  <div class="w3-dropdown-hover">
+    <button class="w3-button">Characters</button>
+
+    <div class="w3-dropdown-content"  w3-card-4">
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R2_Answer_Icon.png" width="40"> Answer</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Axl_Icon.png" width="40">  Axl Low</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R2_Baiken_Icon.png" width="40">  Baiken</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Bedman_Icon.png" width="40"> Bedman</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Chipp_Icon.png" width="40">  Chipp Zanuff</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Dizzy_Icon.png" width="40">  Dizzy</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Elphelt_Icon.png" width="40"> Elphelt Valentine</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Faust_Icon.png" width="40">  Faust</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_I-No_Icon.png" width="40">  I-No</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Jack-O%27_Icon.png" width="40">  Jack-o</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Jam_Icon.png" width="40">  Jam Kuradoberi</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Johnny_Icon.png" width="40"> Johnny</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Kum_Icon.png" width="40">  Kum Haehyun</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Ky_Icon.png" width="40">  Ky Kiske</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Leo_Icon.png" width="40">  Leo Whitefang</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_May_Icon.png" width="40"> May</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Millia_Icon.png" width="40">  Millia Rage</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Potemkin_Icon.png" width="40">  Potemkin</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Ramlethal_Icon.png" width="40">  Ramlethal Valentine</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Raven_Icon.png" width="40">  Raven</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Sin_Icon.png" width="40">  Sin Kiske</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Slayer_Icon.png" width="40">  Slayer</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Sol_Icon.png" width="40">  Sol Badguy</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Venom_Icon.png" width="40">  Venom</a>
+		<a href="#" class="w3-bar-item2 w3-button"><img src="http://www.opuk.ca/images/GGXRD-R_Zato-1_Icon.png" width="40">  Zato-1</a>
+    </div>
+  </div>
+  <div class="w3-dropdown-hover">
+    <button class="w3-button">About</button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+      <a href="#" class="w3-bar-item w3-button">Contact</a>
+      <a href="#" class="w3-bar-item w3-button">Tools used</a>
+      <a href="#" class="w3-bar-item w3-button">History</a>
+    </div>
+  </div>
+	   <a href="#" class="w3-bar-item w3-button w3-light-grey">Upload Replays</a>
+</div> 
+</div>	
+  <div class="content">
+	<left>
+		 <div class="w3-container">
+		  <h2>Starting Goal</h2>
+		  <p>This project was started by <a href="#twitterlink">Flashnub</a> and <a href="#twitterlink">Kupo</a> primarely as a learning experience while attempting to build something practical. </p>
+		  <p>The idea stemed from an evening of banters about who is the bigger bully (obviously it's Flashnub), but having no Data to prove our case, we started looking into the possibility of aggregating matches history.</p>
+		</div>
+
+		<section class="w3-container">
+		  <h2>First steps taken</h2>
+		  <p>Our first step was to scout if similar work had been previously done, and what type of assets we had.</p>
+		  <p>After a brief period of research, we came to the conclusion that no one had really looked into aggregating matches history, so we scratched the idea of borrowing someone's code.</p>
+		  <p>Next, we scouted what we had to work with, locally. Within the Guilty Gear steamapp folder, there was particular folder called Replay, upon inspection, it held <b>100 replxxx.dat</b> files and also a <b>replay.dat</b> file.</p>
+		</section>
+
+		<section class="w3-container">
+		  <h2>Decoding hell</h2>
+		  <p>Opening the .dat(Typical a freeform type of file which every developpers can use their own encoding) with notepad++ revealed.. a mess (go try it on your own). We had no clue what encoding Arksys used to store the replay data.</p>
+		  <p>After a couple hours of trials and error trying to find which encoding it used, we gave up on the idea of recieving <i>clean</i> data.</p>
+		</section> 
+		
+		<section class="w3-container">
+		  <h2>Doing it oldschool</h2>
+		  <p>Our next step was to analyse .dat files through a hex editor</p>
+		  <p>replxxx.dat looked like a hot mess and held no consistency, it didn't seem to have any relevance to the match history. (we found out later that the replay itself (inputs, yada yada) is saved in replxxx.dat)</p>
+		  <p>Next we looked at replay.dat and upon inspection we noticed that a certain string-length was repeating itself, 100 times. Eureka, the 100 match history displayed in the replay were all stored in this one file.</p>
+		</section> 
+		
+		<section class="w3-container">
+		  <h2>Hackerman</h2>
+		  <p>Next step was to reverse engineer the hex code</p>
+		  <p>Every matches had a string-length of 504 bits, Starting from the 28th. After splitting them all into a spreadsheet, we started changing inputs and analysing outputs.</p>
+		  <p>The results indicated the following :</p>
+		  <p><ul style="list-style-type:disc">
+			<dl>
+			<dt><b>Winner Boolean</b></dt> <dd>- 0 = Player 1 ; 1 = Player 2</dd>
+			<dt><b>Player 1 and Player 2 Character</b></dt> <dd>- A two bit Hex (each) to determine the players's character (00 = Ky, 08 = Axl)</dd>
+			<dt><b>Player 1 and Player 2 Hash</b></dt> <dd>- A 10 bit (each) that was unique for each player.</dd>
+			<dt><b>Timestamp</b></dt> <dd>- Year, Month, Day, Hour, Minutes, Seconds. Each have 2 bits. Uses Local time and not UTC.</dd>
+			</dl>
+			</p>
+		</section> 
+		
+		<section class="w3-container">
+		  <h2>Parsing the replay</h2>
+		  <p>Next we had to automate the parsing of the data</p>
+		  <p>We created a javascript that would grab, parse and send the array to an API which would insert it to our MySQL server.</p>
+		</section> 
+		
+		<section class="w3-container">
+		  <h2>Attributing a player name to a hash</h2>
+		  <p>Since it was impossible to decode the player hash, we manually created and maintained a Player name/player hash reference table</p>
+		  <p>This step was extremely inefficient.</p>
+		</section>
+		
+		<section class="w3-container">
+			<h2>Avoiding Duplicates and inaccuricies</h2>
+			<p>To avoid players uploading duplicates, we needed to create a "Primary Key"</p>
+			<p>We knew that using the hour wasn't a viable solution because the time was saved locally which would cause too many duplicates when two players in different timezones would upload the replays of their fights together</p>
+			<p>So we decided to use : the player names, the player characters, the year/month/day/minutes and the winner boolean to create our "UniqueHash".
+			<p>It's not fool proof, if two players in two different time zones play while being on different days and both upload the replay, the matches which were played in separate days will be duplicated.
+			<p>Also, if two players play on the same day and on the same minute, with the same characters and the same result, it will be detected as a duplicate and ignored.</p>
+		</section>
+		
+		<section class="w3-container">
+		  <h2>Analysing the data</h2>
+		  <p>To shorten the conception time of a test analysis, we used tableau to fetch and synthetize the SQL database.</p>
+		  <p>While functional, Tableau is mainly aimed for businesses purpose and cannot be hosted publicly & directly linked to the SQL database (unless you pay big $$).</p>
+		</section>
+		
+		<section class="w3-container">
+		  <h2>SteamID</h2>
+		  <p>We tinkered around a bit with the player hash and discovered that it was in fact the Decimal to Hex convertion of the player's Steam ID, ordered in an odd way.</p>
+		  <p>From there we worked on having the parser convert the said hash into a steamID and then create a separate array which would hold all unique steamIDs within the replay file.</p>
+		  <p>The next step was to call Steam's API to convert all steamIDs into the players's current Alias.</p>
+		</section>
+		
+		<section class="w3-container">
+		  <h2>Why not fetch everything?</h2>
+		  <p>While creating a call the the steam API, we thought of the possibility to also call for all replay data stored inside steam's API</p>
+		  <p>We didn't really find any concrete answers, there was a glimmer of hope that with a publisher key, we could fetch said data but without enough proof we couldn't bring ourselves to spend the money.</p>
+		  <p>We emailed steamwork but have yet to get an answer from them.</p>
+		</section>
+		
+		<section class="w3-container">
+		  <h2>Why not fetch everything?</h2>
+		  <p>While creating a call the the steam API, we thought of the possibility to also call for all replay data stored inside steam's API</p>
+		  <p>We didn't really find any concrete answers, there was a glimmer of hope that with a publisher key, we could fetch said data but without enough proof we couldn't bring ourselves to spend the money.</p>
+		  <p>We emailed steamwork but have yet to get an answer from them.</p>
+		</section>
+		
+				<section class="w3-container">
+		  <h2>Whats to come?</h2>
+		  <p>The biggest thing to work on for us at this point will be the frontend and backend of the analysis, we want to move away from tableau but we have a lot of learning to do when it comes to node.js and graphically displaying SQL queries.</p>
+		  <p>We'd really like to automate the replay fetching so players don't have to upload their replays, we're still waiting on an answer from Steamwork on this case.</p>
+		  <p>As part of this project, maybe we'll do the same for other Steam Fighting games, but the way their replay data is saved may be completely different and impossible for us to interpret</p>
+		</section>
+		
+		
+	</div>
+	<div class"w3-bottom"><div class="footer">This is a community project and not for commercial use, all assets and rights are owned by Arksys.</div></div>
+	</body>
+	</html>
