@@ -1,6 +1,7 @@
 body {
     background: url("http://www.ggxrd.com/rev/ac/assets/img/rev2/visual-logo.png") right top no-repeat, url("http://opuk.ca/images/background.jpg") left top no-repeat;
     background-size: 20%, cover;
+	background-attachment: fixed;
 }
 
 header 
