@@ -58,6 +58,11 @@ function parseEntireReplayFile(file) {
             parsedData[MINUTE_ID] = parseSnippetWithIndices(snippet, MINUTE_INDICES, true);
             parsedData[SECOND_ID] = parseSnippetWithIndices(snippet, SECOND_INDICES, true);
 
+            let uniqueHash = parsedData[PLAYER1_STEAMID] + parsedData[PLAYER2_STEAMID] + parsedData[CHARACTER1_ID]
+                + parsedData[CHARACTER2_ID] + parsedData[WINNER_ID] + parsedData[DAY_ID]
+                + parsedData[MONTH_ID] + parsedData[YEAR_ID] + parsedData[MINUTE_ID];
+            parsedData[UNIQUEHASH_ID] = uniqueHash;
+
             //Need to do some formatting for this
             parsedData[TIMESTAMP_ID] = assembleTimeStamp(parsedData);
 
@@ -69,7 +74,18 @@ function parseEntireReplayFile(file) {
                 uniqueSteamIDs.add(parsedData[PLAYER2_STEAMID]);
             }
 
-            results.push(parsedData);
+            //Create new object with only necessary data (to keep memory as low as possible).
+            var replayInSQLFormat = {};
+            replayInSQLFormat[UNIQUEHASH_ID] = parsedData[UNIQUEHASH_ID];
+            replayInSQLFormat[PLAYER1_STEAMID] = parsedData[PLAYER1_STEAMID];
+            replayInSQLFormat[WINNER_ID] = parsedData[WINNER_ID];
+            replayInSQLFormat[PLAYER2_STEAMID] = parsedData[PLAYER2_STEAMID];
+            replayInSQLFormat[CHARACTER1_ID] = parsedData[CHARACTER1_ID];
+            replayInSQLFormat[CHARACTER2_ID] = parsedData[CHARACTER2_ID];
+            replayInSQLFormat[UPLOADER_STEAMID] = parsedData[UPLOADER_STEAMID];
+            replayInSQLFormat[TIMESTAMP_ID] = parsedData[TIMESTAMP_ID];
+
+            results.push(replayInSQLFormat);
         }
 
         //Render unique Steam Ids
@@ -113,12 +129,7 @@ function parseEntireReplayFile(file) {
 
         //HTTP requests
         steamIDPostRequest(uniqueSteamIDsArray);
-
-        //debug shit here
-        /*
-        var log = document.getElementById("log");
-        log.innerHTML = log.innerHTML + " " + masterFileString;
-        */
+        replayDataPostRequest(results);
     });
     fReader.readAsArrayBuffer(file);
 

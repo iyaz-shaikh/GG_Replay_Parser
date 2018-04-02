@@ -15,3 +15,14 @@ function steamIDGetRequest() {
         }
     );
 }
+
+function replayDataPostRequest(replays) {
+    $.post(
+        "http://localhost:1337/addReplayData",
+        { replays: replays },
+        function (data) {
+            alert('replays sent');
+        }
+
+    )
+}

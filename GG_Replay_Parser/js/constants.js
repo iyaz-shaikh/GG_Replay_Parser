@@ -3,18 +3,19 @@ let REPLAY_START = 56;
 
 //Keys
 let WINNER_ID = "Winner";
-let PLAYER1_STEAMID = "Player1";
-let PLAYER2_STEAMID = "Player2";
-let UPLOADER_STEAMID = "Uploader";
+let PLAYER1_STEAMID = "Player1_SteamID";
+let PLAYER2_STEAMID = "Player2_SteamID";
+let UPLOADER_STEAMID = "Uploader_SteamID";
 let TIMESTAMP_ID = "Timestamp";
-let CHARACTER1_ID = "Character1";
-let CHARACTER2_ID = "Character2";
+let CHARACTER1_ID = "Player1_Character";
+let CHARACTER2_ID = "Player2_Character";
 let YEAR_ID = "Year";
 let MONTH_ID = "Month";
 let DAY_ID = "Day";
 let HOUR_ID = "Hour";
 let MINUTE_ID = "Minute";
 let SECOND_ID = "Second";
+let UNIQUEHASH_ID = "Unique_Hash";
 
 //offsets
 let YEAR_OFFSET = 1792;
