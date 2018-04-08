@@ -19,52 +19,44 @@ function parseEntireReplayFile(file) {
     var masterFileString = "";
     fReader.addEventListener('load', function () {
         var base10Array = new Uint8Array(this.result);
-        var stringHexArray = new Array(base10Array.length); //for debugging
         var i = 0;
         while (i < base10Array.length) {
             // map to hex
-            stringHexArray[i] = (base10Array[i] < 16 ? '0' : '') + base10Array[i].toString(16);
-            masterFileString = masterFileString + stringHexArray[i];
+            masterFileString = masterFileString + (base10Array[i] < 16 ? '0' : '') + base10Array[i].toString(16);
             i++;
         }
-        base10Array = null; // free memory
+        base10Array = null; //free memory
       
         var results = new Array();
         let uniqueSteamIDs = new Set();
+
+        var timezone_offset = moment.parseZone(new Date()).utcOffset() / 60.0;
 
         //Begin Parsing.
         for (var hIndex = REPLAY_START; hIndex < masterFileString.length; hIndex += REPLAY_LENGTH) {
             if (hIndex + REPLAY_LENGTH >= masterFileString.length)
                 break;
 
-            var snippet = "";
+            var replaySnippet = "";
             for (var sIndex = 0; sIndex < REPLAY_LENGTH; sIndex++) {
-                snippet = snippet + masterFileString.charAt(hIndex + sIndex);
+                replaySnippet = replaySnippet + masterFileString.charAt(hIndex + sIndex);
             }
+
             var parsedData = {}; //dictionary
 
-            parsedData[WINNER_ID] = parseSnippetWithIndices(snippet, WINNER_INDICES);
-            parsedData[UPLOADER_STEAMID] = parseSnippetWithIndices(snippet, UPLOADERSTEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[PLAYER1_STEAMID] = parseSnippetWithIndices(snippet, P1STEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[PLAYER2_STEAMID] = parseSnippetWithIndices(snippet, P2STEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[CHARACTER1_ID] = parseSnippetWithIndices(snippet, CHARACTER1_INDICES);
-            parsedData[CHARACTER2_ID] = parseSnippetWithIndices(snippet, CHARACTER2_INDICES);
-
-            //Timestamp
-            parsedData[YEAR_ID] = parseSnippetWithIndices(snippet, YEAR_INDICES, true, YEAR_OFFSET);
-            parsedData[MONTH_ID] = parseSnippetWithIndices(snippet, MONTH_INDICES, true);
-            parsedData[DAY_ID] = parseSnippetWithIndices(snippet, DAY_INDICES, true);
-            parsedData[HOUR_ID] = parseSnippetWithIndices(snippet, HOUR_INDICES, true);
-            parsedData[MINUTE_ID] = parseSnippetWithIndices(snippet, MINUTE_INDICES, true);
-            parsedData[SECOND_ID] = parseSnippetWithIndices(snippet, SECOND_INDICES, true);
-
-            let uniqueHash = parsedData[PLAYER1_STEAMID] + parsedData[PLAYER2_STEAMID] + parsedData[CHARACTER1_ID]
-                + parsedData[CHARACTER2_ID] + parsedData[WINNER_ID] + parsedData[DAY_ID]
-                + parsedData[MONTH_ID] + parsedData[YEAR_ID] + parsedData[MINUTE_ID];
-            parsedData[UNIQUEHASH_ID] = uniqueHash;
+            parsedData[WINNER_ID] = parseSnippetWithIndices(replaySnippet, WINNER_INDICES);
+            parsedData[UPLOADER_STEAMID] = parseSnippetWithIndices(replaySnippet, UPLOADERSTEAMID_INDICES, true, null, STEAMID_PREFIX);
+            parsedData[PLAYER1_STEAMID] = parseSnippetWithIndices(replaySnippet, P1STEAMID_INDICES, true, null, STEAMID_PREFIX);
+            parsedData[PLAYER2_STEAMID] = parseSnippetWithIndices(replaySnippet, P2STEAMID_INDICES, true, null, STEAMID_PREFIX);
+            parsedData[CHARACTER1_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER1_INDICES);
+            parsedData[CHARACTER2_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER2_INDICES);
 
             //Need to do some formatting for this
-            parsedData[TIMESTAMP_ID] = assembleTimeStamp(parsedData);
+            parsedData[TIMESTAMP_ID] = assembleTimeStamp(replaySnippet, timezone_offset);
+
+            let uniqueHash = parsedData[PLAYER1_STEAMID] + parsedData[PLAYER2_STEAMID] + parsedData[CHARACTER1_ID]
+                + parsedData[CHARACTER2_ID] + parsedData[WINNER_ID] + parsedData[TIMESTAMP_ID];
+            parsedData[UNIQUEHASH_ID] = uniqueHash;
 
             //Check for unique Steam IDs
             if (!uniqueSteamIDs.has(parsedData[PLAYER1_STEAMID])) {
@@ -74,18 +66,7 @@ function parseEntireReplayFile(file) {
                 uniqueSteamIDs.add(parsedData[PLAYER2_STEAMID]);
             }
 
-            //Create new object with only necessary data (to keep memory as low as possible).
-            var replayInSQLFormat = {};
-            replayInSQLFormat[UNIQUEHASH_ID] = parsedData[UNIQUEHASH_ID];
-            replayInSQLFormat[PLAYER1_STEAMID] = parsedData[PLAYER1_STEAMID];
-            replayInSQLFormat[WINNER_ID] = parsedData[WINNER_ID];
-            replayInSQLFormat[PLAYER2_STEAMID] = parsedData[PLAYER2_STEAMID];
-            replayInSQLFormat[CHARACTER1_ID] = parsedData[CHARACTER1_ID];
-            replayInSQLFormat[CHARACTER2_ID] = parsedData[CHARACTER2_ID];
-            replayInSQLFormat[UPLOADER_STEAMID] = parsedData[UPLOADER_STEAMID];
-            replayInSQLFormat[TIMESTAMP_ID] = parsedData[TIMESTAMP_ID];
-
-            results.push(replayInSQLFormat);
+            results.push(parsedData);
         }
 
         //Render unique Steam Ids
@@ -132,7 +113,6 @@ function parseEntireReplayFile(file) {
         replayDataPostRequest(results);
     });
     fReader.readAsArrayBuffer(file);
-
 }
 
 
@@ -159,21 +139,18 @@ function parseSnippetWithIndices(snippet, indices, convertToBase10, offset, pref
 }
 
 
-function assembleTimeStamp(result) {
-    let year = parseInt(result[YEAR_ID], 10);
-    let month = parseInt(result[MONTH_ID], 10);
-    let day = parseInt(result[DAY_ID], 10);
-    let hour = parseInt(result[HOUR_ID], 10);
-    let minute = parseInt(result[MINUTE_ID], 10);
-    let second = parseInt(result[SECOND_ID], 10);
+function assembleTimeStamp(snippet) {
+    let year = parseInt(parseSnippetWithIndices(snippet, YEAR_INDICES, true, YEAR_OFFSET), 10);
+    let month = parseInt(parseSnippetWithIndices(snippet, MONTH_INDICES, true), 10);
+    let day = parseInt(parseSnippetWithIndices(snippet, DAY_INDICES, true), 10);
+    let hour = parseInt(parseSnippetWithIndices(snippet, HOUR_INDICES, true), 10);
+    let minute = parseInt(parseSnippetWithIndices(snippet, MINUTE_INDICES, true), 10);
+//    let s = parseInt(parseSnippetWithIndices(snippet, SECOND_INDICES, true), 10);
 
-    var date = new Date(Date.UTC(year, month, day, hour, minute, second));
-    var options = {
-        weekday: "long", year: "numeric", month: "short",
-        day: "numeric", hour: "2-digit", minute: "2-digit"
-    };  
-    let dateString = date.toLocaleDateString("en-US");
-    return dateString;
+    var date = new Date(year, month, day, hour, minute, 00);
+    let date2 = moment.utc(date).format();
+
+    return date2;
 }
 
 //Online workaround to Javascript's limitation of having a max of 52 bit floating point numbers in parseInt, which causes inaccuracies when converting from hex to dec.
