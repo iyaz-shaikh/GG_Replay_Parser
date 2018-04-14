@@ -3,8 +3,8 @@ let REPLAY_START = 56;
 
 //Keys
 let WINNER_ID = "Winner";
-let PLAYER1_STEAMID = "Player1_SteamID";
-let PLAYER2_STEAMID = "Player2_SteamID";
+let PLAYER_STEAMID = "Player_SteamID";
+let OPPONENT_STEAMID = "Opponent_SteamID";
 let UPLOADER_STEAMID = "Uploader_SteamID";
 let TIMESTAMP_ID = "Timestamp";
 let CHARACTER1_ID = "Player1_Character";

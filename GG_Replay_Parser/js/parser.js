@@ -42,31 +42,39 @@ function parseEntireReplayFile(file) {
                 replaySnippet = replaySnippet + masterFileString.charAt(hIndex + sIndex);
             }
 
-            var parsedData = {}; //dictionary
+            var regularData = {}; 
+            var inversedData = {};
 
-            parsedData[WINNER_ID] = parseSnippetWithIndices(replaySnippet, WINNER_INDICES);
-            parsedData[UPLOADER_STEAMID] = parseSnippetWithIndices(replaySnippet, UPLOADERSTEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[PLAYER1_STEAMID] = parseSnippetWithIndices(replaySnippet, P1STEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[PLAYER2_STEAMID] = parseSnippetWithIndices(replaySnippet, P2STEAMID_INDICES, true, null, STEAMID_PREFIX);
-            parsedData[CHARACTER1_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER1_INDICES);
-            parsedData[CHARACTER2_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER2_INDICES);
+            regularData[WINNER_ID] = parseSnippetWithIndices(replaySnippet, WINNER_INDICES);
+            regularData[UPLOADER_STEAMID] = parseSnippetWithIndices(replaySnippet, UPLOADERSTEAMID_INDICES, true, null, STEAMID_PREFIX);
+            regularData[PLAYER_STEAMID] = parseSnippetWithIndices(replaySnippet, P1STEAMID_INDICES, true, null, STEAMID_PREFIX);
+            regularData[OPPONENT_STEAMID] = parseSnippetWithIndices(replaySnippet, P2STEAMID_INDICES, true, null, STEAMID_PREFIX);
+            regularData[CHARACTER1_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER1_INDICES);
+            regularData[CHARACTER2_ID] = parseSnippetWithIndices(replaySnippet, CHARACTER2_INDICES);
+            regularData[TIMESTAMP_ID] = assembleTimeStamp(replaySnippet, timezone_offset);
 
-            //Need to do some formatting for this
-            parsedData[TIMESTAMP_ID] = assembleTimeStamp(replaySnippet, timezone_offset);
+            regularData[UNIQUEHASH_ID] = generateUniqueHash(regularData);
 
-            let uniqueHash = parsedData[PLAYER1_STEAMID] + parsedData[PLAYER2_STEAMID] + parsedData[CHARACTER1_ID]
-                + parsedData[CHARACTER2_ID] + parsedData[WINNER_ID] + parsedData[TIMESTAMP_ID];
-            parsedData[UNIQUEHASH_ID] = uniqueHash;
+            inversedData[UPLOADER_STEAMID] = regularData[UPLOADER_STEAMID];
+            inversedData[PLAYER_STEAMID] = regularData[OPPONENT_STEAMID];
+            inversedData[OPPONENT_STEAMID] = regularData[PLAYER_STEAMID];
+            inversedData[CHARACTER1_ID] = regularData[CHARACTER2_ID];
+            inversedData[CHARACTER2_ID] = regularData[CHARACTER1_ID];
+            inversedData[TIMESTAMP_ID] = regularData[TIMESTAMP_ID];
+            inversedData[WINNER_ID] = flipWinnerStringToBoolean(regularData[WINNER_ID]);
+
+            inversedData[UNIQUEHASH_ID] = generateUniqueHash(inversedData);
 
             //Check for unique Steam IDs
-            if (!uniqueSteamIDs.has(parsedData[PLAYER1_STEAMID])) {
-                uniqueSteamIDs.add(parsedData[PLAYER1_STEAMID]);
+            if (!uniqueSteamIDs.has(regularData[PLAYER_STEAMID])) {
+                uniqueSteamIDs.add(regularData[PLAYER_STEAMID]);
             }
-            if (!uniqueSteamIDs.has(parsedData[PLAYER2_STEAMID])) {
-                uniqueSteamIDs.add(parsedData[PLAYER2_STEAMID]);
+            if (!uniqueSteamIDs.has(regularData[OPPONENT_STEAMID])) {
+                uniqueSteamIDs.add(regularData[OPPONENT_STEAMID]);
             }
 
-            results.push(parsedData);
+            results.push(regularData);
+            results.push(inversedData);
         }
 
         //Render unique Steam Ids
@@ -97,10 +105,10 @@ function parseEntireReplayFile(file) {
             var newRow = $("<tr>");
             newRow.append($("<td>" + replay[WINNER_ID] + "</td >"));
             newRow.append($("<td>" + replay[UPLOADER_STEAMID] + "</td >"));
-            newRow.append($("<td>" + replay[PLAYER1_STEAMID] + "</td >"));
+            newRow.append($("<td>" + replay[PLAYER_STEAMID] + "</td >"));
             newRow.append($("<td>" + replay[CHARACTER1_ID] + "</td >"));
             newRow.append($("<td>" + replay[CHARACTER2_ID] + "</td >"));
-            newRow.append($("<td>" + replay[PLAYER2_STEAMID] + "</td >"));
+            newRow.append($("<td>" + replay[OPPONENT_STEAMID] + "</td >"));
             newRow.append($("<td>" + replay[TIMESTAMP_ID] + "</td >"));
             newRow.append($("</tr>"));
             newRows.append(newRow);
@@ -115,7 +123,16 @@ function parseEntireReplayFile(file) {
     fReader.readAsArrayBuffer(file);
 }
 
+function flipWinnerStringToBoolean(winner) {
+    var winnerBoolean = winner == "01";
+    return winnerBoolean ? "00" : "01";
+}
 
+
+function generateUniqueHash(parsedData) {
+    return parsedData[PLAYER_STEAMID] + parsedData[OPPONENT_STEAMID] + parsedData[CHARACTER1_ID]
+        + parsedData[CHARACTER2_ID] + parsedData[WINNER_ID] + parsedData[TIMESTAMP_ID];
+}
 
 //helper
 //Offset can only be used in cases < 2^53
@@ -148,7 +165,7 @@ function assembleTimeStamp(snippet) {
 //    let s = parseInt(parseSnippetWithIndices(snippet, SECOND_INDICES, true), 10);
 
     var date = new Date(year, month, day, hour, minute, 00);
-    let date2 = moment.utc(date).format();
+    let date2 = moment.utc(date).format('YYYY/MM/DD HH:mm:ss');
 
     return date2;
 }
