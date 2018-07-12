@@ -1,0 +1,13 @@
+{
+  "name": "gg_replay_parser",
+  "version": "0.0.0",
+  "description": "GG_Replay_Parser",
+  "main": "server.js",
+  "author": {
+    "name": "Xx420TryhardxX"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2"
+  }
+}

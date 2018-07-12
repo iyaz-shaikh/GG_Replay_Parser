@@ -45,7 +45,7 @@ function parseEntireReplayFile(file) {
             var regularData = {}; 
             var inversedData = {};
 
-            regularData[WINNER_ID] = parseSnippetWithIndices(replaySnippet, WINNER_INDICES);
+            regularData[WINNER_ID] = flipWinnerStringToBoolean(parseSnippetWithIndices(replaySnippet, WINNER_INDICES)); //flip it so when player wins, it == 1 and lose == 0.
             regularData[UPLOADER_STEAMID] = parseSnippetWithIndices(replaySnippet, UPLOADERSTEAMID_INDICES, true, null, STEAMID_PREFIX);
             regularData[PLAYER_STEAMID] = parseSnippetWithIndices(replaySnippet, P1STEAMID_INDICES, true, null, STEAMID_PREFIX);
             regularData[OPPONENT_STEAMID] = parseSnippetWithIndices(replaySnippet, P2STEAMID_INDICES, true, null, STEAMID_PREFIX);
@@ -61,7 +61,7 @@ function parseEntireReplayFile(file) {
             inversedData[CHARACTER1_ID] = regularData[CHARACTER2_ID];
             inversedData[CHARACTER2_ID] = regularData[CHARACTER1_ID];
             inversedData[TIMESTAMP_ID] = regularData[TIMESTAMP_ID];
-            inversedData[WINNER_ID] = flipWinnerStringToBoolean(regularData[WINNER_ID]);
+            inversedData[WINNER_ID] = flipWinnerStringToBoolean(regularData[WINNER_ID]); //flip to return to original value in snippet (essentially a double flip).
 
             inversedData[UNIQUEHASH_ID] = generateUniqueHash(inversedData);
 
