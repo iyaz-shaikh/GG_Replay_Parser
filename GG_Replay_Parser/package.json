@@ -6,7 +6,13 @@
   "author": {
     "name": "Xx420TryhardxX"
   },
+  "scripts": {
+    "start": "npm run open",
+    "open": "http-server -a localhost -p 1337"
+  },
   "dependencies": {
+    "express": "^4.16.4",
+    "http-server": "^0.11.1",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "react": "^16.4.1"
